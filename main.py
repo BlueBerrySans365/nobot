@@ -9,7 +9,8 @@ from config import BOT_TOKEN
 from aiogram.fsm.context import FSMContext
 
 from aiogram.types import (
-    Message
+    Message,
+    URLInputFile
 )
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
@@ -31,7 +32,22 @@ dp = Dispatcher(storage=storage)
 
 @dp.message(Command("id"))
 async def get_id(message: Message, state: FSMContext):
-    await message.answer(str(message.from_user.id))
+    await message.answer(str(message.chat.id))
+
+@dp.message()
+async def check_membership(message: types.Message):
+    user_id = message.from_user.id
+    chat_id = message.chat.id
+
+    # Проверяем, является ли пользователь участником группы
+    chat_member = await bot.get_chat_member(chat_id, user_id)
+    if chat_member.status in ['member', 'administrator', 'creator']:
+        # Пользователь является участником группы
+        await message.answer("идите нахуй, лол")
+    else:
+        # Пользователь не является участником группы
+        pass
+
 
 
 if __name__ == "__main__":
