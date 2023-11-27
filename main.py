@@ -2,15 +2,13 @@
 
 # Импорт модулей
 import logging
-import sqlite3 
+import sqlite3
 
 from aiogram import F, Bot, Dispatcher, types
 from config import BOT_TOKEN
 from aiogram.fsm.context import FSMContext
 
-from aiogram.types import (
-    Message
-)
+from aiogram.types import Message
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
 
@@ -28,6 +26,7 @@ cur = con.cursor()
 storage = MemoryStorage()
 bot = Bot(BOT_TOKEN, parse_mode="html")
 dp = Dispatcher(storage=storage)
+
 
 @dp.message(Command("id"))
 async def get_id(message: Message, state: FSMContext):
