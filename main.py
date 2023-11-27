@@ -5,7 +5,7 @@ import logging
 import sqlite3
 
 from aiogram import F, Bot, Dispatcher, types
-from config import BOT_TOKEN
+from config import BOT_TOKEN, GROUP_ID
 from aiogram.fsm.context import FSMContext
 
 from aiogram.types import (
@@ -38,7 +38,7 @@ async def get_id(message: Message, state: FSMContext):
 @dp.message()
 async def check_membership(message: types.Message):
     user_id = message.from_user.id
-    chat_id = message.chat.id
+    chat_id = GROUP_ID
 
     # Проверяем, является ли пользователь участником группы
     chat_member = await bot.get_chat_member(chat_id, user_id)
